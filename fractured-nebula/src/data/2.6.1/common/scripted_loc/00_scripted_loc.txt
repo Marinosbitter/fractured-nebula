@@ -1,0 +1,925 @@
+# Allows you to create your own dynamic keys
+# to be called in localization.
+# defined_text -> this is it, we're defining the text
+# text -> a discrete entry that can be picked to display in loc.
+# trigger -> determines if a text entry will be picked or not.
+# (The triggers need to be valid for the scope the key is called in
+# (eg Root or From.From).)
+# localization_key -> points to the localization key
+# that'll be used if trigger passes
+
+
+defined_text = { # Country/leader/pop/species scope
+	name = GetEdibleName
+	text = {
+		trigger = {
+			is_species_class = AVI
+		}
+		localization_key = edible_avi
+	}
+	text = {
+		trigger = {
+			is_species_class = MAM
+		}
+		localization_key = edible_mam
+	}
+	text = {
+		trigger = {
+			is_species_class = REP
+		}
+		localization_key = edible_rep
+	}
+	text = {
+		trigger = {
+			is_species_class = FUN
+		}
+		localization_key = edible_fun
+	}
+	text = {
+		trigger = {
+			is_species_class = MOL
+		}
+		localization_key = edible_mol
+	}
+	text = {
+		trigger = {
+			is_species_class = HUM
+		}
+		localization_key = edible_hum
+	}
+	text = {
+		trigger = {
+			is_species_class = ART
+		}
+		localization_key = edible_art
+	}
+	text = {
+		trigger = {
+			is_species_class = PLANT
+		}
+		localization_key = edible_plant
+	}
+	text = {
+		localization_key = edible_fallback
+	}
+}
+
+defined_text = { # Country/leader/pop/species scope
+	name = GetEdibleNamePlural
+	text = {
+		trigger = {
+			is_species_class = AVI
+		}
+		localization_key = edible_avi_plural
+	}
+	text = {
+		trigger = {
+			is_species_class = MAM
+		}
+		localization_key = edible_mam_plural
+	}
+	text = {
+		trigger = {
+			is_species_class = REP
+		}
+		localization_key = edible_rep_plural
+	}
+	text = {
+		trigger = {
+			is_species_class = FUN
+		}
+		localization_key = edible_fun_plural
+	}
+	text = {
+		trigger = {
+			is_species_class = MOL
+		}
+		localization_key = edible_mol_plural
+	}
+	text = {
+		trigger = {
+			is_species_class = HUM
+		}
+		localization_key = edible_hum_plural
+	}
+	text = {
+		trigger = {
+			is_species_class = ART
+		}
+		localization_key = edible_art_plural
+	}
+	text = {
+		trigger = {
+			is_species_class = PLANT
+		}
+		localization_key = edible_plants
+	}
+	text = {
+		localization_key = edible_fallback_plural
+	}
+}
+
+#############################################
+# Common terms for Machine and Hive empires #
+#############################################
+
+# Scientist
+# Example: Our science unit/science drone/scientist has found a...
+defined_text = {
+	name = GetScientist
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getscientist_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getscientist_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getscientist_normal
+	}
+}
+
+# Scientists
+# Example: Our science units/science drones/scientists have reported that...
+defined_text = {
+	name = GetScientistPlural
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getscientistplural_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getscientistplural_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getscientistplural_normal
+	}
+}
+
+# Envoy
+# Example: Our diplomatic unit/diplomatic drone/envoy has found a...
+defined_text = {
+	name = GetEnvoy
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getenvoy_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getenvoy_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getenvoy_normal
+	}
+}
+
+# Envoy
+# Example: Our diplomatic unit/diplomatic drone/envoy has found a...
+defined_text = {
+	name = GetEnvoyCap
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getenvoycap_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getenvoycap_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getenvoycap_normal
+	}
+}
+
+# Envoys
+# Example: Our diplomatic units/diplomatic drones/envoys have reported that...
+defined_text = {
+	name = GetEnvoyPlural
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getenvoyplural_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getenvoyplural_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getenvoyplural_normal
+	}
+}
+
+# Example: Our linguists/language drones/linguistic algoriths...
+defined_text = {
+	name = GetLinguists
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getlinguists_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getlinguists_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getlinguists_normal
+	}
+}
+
+# Example: Our researchers/research drones/research subroutines...
+defined_text = {
+	name = GetResearchers
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getresearchers_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getresearchers_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getresearchers_normal
+	}
+}
+
+# Example: A team member/drone/unit...
+defined_text = {
+	name = GetTeamMember
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = unit_key
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = drone_key
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = team_member_key
+	}
+}
+
+defined_text = { # Country scope
+	name = GetUnitDrone
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getunitdrone_unit
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getunitdrone_drone
+	}
+	text = {	# fallback if not Gestalt Consciousness
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getunitdrone_leader
+	}
+}
+
+defined_text = { # Country scope
+	name = GetUnitDronePlural
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getunitdrone_unit_plural
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getunitdrone_drone_plural
+	}
+	text = {	# fallback if not Gestalt Consciousness
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getunitdrone_leader_plural
+	}
+}
+defined_text = {
+	name = GetTerraformer
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getterraformer_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getterraformer_hive
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getterraformer_normal
+	}
+}
+
+defined_text = {
+	name = GetTerraformerPlural
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getterraformer_machine_plural
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getterraformer_hive_plural
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getterraformer_normal_plural
+	}
+}
+
+defined_text = { # Country scope
+	name = GetBrainName
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = getbrainname_machine
+	}
+	text = {
+		trigger = {
+			has_authority = auth_hive_mind
+		}
+		localization_key = getbrainname_hive
+	}
+	text = {	# fallback if not Gestalt Consciousness
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = getbrainname_error
+	}
+}
+
+defined_text = { # Must be scoped to country when called
+	name = GetMonsterOnShipDesc
+	text = {
+		trigger = {
+			has_authority = auth_machine_intelligence
+		}
+		localization_key = monsteronship_mach_desc
+	}
+	text = {
+		trigger = {
+			NOT = { has_authority = auth_machine_intelligence }
+		}
+		localization_key = monsteronship_desc
+	}
+}
+
+defined_text = {
+	name = GetPrecursorCiv
+	text = {
+		trigger = {
+			has_country_flag = vultaum_artifact_recoverer
+		}
+		localization_key = vultaum_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = yuht_artifact_recoverer
+		}
+		localization_key = yuht_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = first_league_artifact_recoverer
+		}
+		localization_key = first_league_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = irassian_artifact_recoverer
+		}
+		localization_key = irassian_precursor_civ
+	}
+	text = {
+		trigger = {
+			has_country_flag = cybrex_artifact_recoverer
+		}
+		localization_key = cybrex_precursor_civ
+	}
+}
+
+defined_text = {
+	name = Get1stPlanetKiller
+	text = {
+		trigger = {
+			has_country_flag = pk_cracker
+		}
+		localization_key = get1stplanetkiller_cracker
+	}
+	text = {
+		trigger = {
+			has_country_flag = pk_shielder
+		}
+		localization_key = get1stplanetkiller_shielder
+	}
+	text = {
+		trigger = {
+			has_country_flag = pk_neutron
+		}
+		localization_key = get1stplanetkiller_neutron
+	}
+	text = {
+		trigger = {
+			has_country_flag = pk_godray
+		}
+		localization_key = get1stplanetkiller_godray
+	}
+	text = {
+		trigger = {
+			has_country_flag = pk_nanobots
+		}
+		localization_key = get1stplanetkiller_nanobots
+	}
+	text = {
+		trigger = {
+			NOR = {
+				has_country_flag = pk_cracker
+				has_country_flag = pk_shielder
+				has_country_flag = pk_neutron
+				has_country_flag = pk_godray
+				has_country_flag = pk_nanobots
+			}
+		}
+		localization_key = get1stplanetkiller_none
+	}
+}
+
+defined_text = {
+	name = GetDiplomacyTraditionName
+	text = {
+		trigger = {
+			owner = {
+				OR = {
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_inwards_perfection
+					has_authority = auth_hive_mind
+					has_origin = origin_necrophage
+				}
+			}
+		}
+		localization_key = tradition_adaptability
+	}
+	text = {
+		trigger = {
+			owner = {
+				NOR = {
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_inwards_perfection
+					has_authority = auth_hive_mind
+					has_authority = auth_machine_intelligence
+					has_origin = origin_necrophage
+				}
+			}
+		}
+		localization_key = tradition_diplomacy
+	}
+	text = {
+		trigger = {
+			owner = {
+				has_authority = auth_machine_intelligence
+			}
+		}
+		localization_key = tradition_versatility
+	}
+}
+
+defined_text = {
+	name = GetTradingHubType
+	text = {
+		trigger = {
+			has_ethic = ethic_gestalt_consciousness
+		}
+		localization_key = sm_trading_hub_gestalt
+	}
+	text = {
+		trigger = {
+			NOT = { has_ethic = ethic_gestalt_consciousness }
+		}
+		localization_key = sm_trading_hub
+	}
+}
+
+defined_text = {
+	name = GetGrayGooWorldDesc
+	text = {
+		trigger = {
+			has_global_flag = active_gray_goo
+		}
+		localization_key = gray_goo_world_active_nanites
+	}
+	text = {
+		trigger = {
+			NOT = { has_global_flag = active_gray_goo }
+		}
+		localization_key = gray_goo_world_inactive_nanites
+	}
+}
+
+defined_text = {
+	name = GetShieldedPlanetDesc
+	text = {
+		trigger = {
+			NOT = { has_planet_flag = is_time_loop_world }
+		}
+		localization_key = pc_shielded_desc_orig
+	}
+	text = {
+		trigger = {
+			has_planet_flag = is_time_loop_world
+		}
+		localization_key = pc_time_loop_world_desc
+	}
+}
+
+defined_text = {
+	name = GetWormTechPartialFullTitle
+	text = {
+		trigger = {
+			NOR = {
+				has_technology = tech_akx_worm_1
+				has_technology = tech_akx_worm_2
+			}
+		}
+		localization_key = tech_akx_worm_partial_custom
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_technology = tech_akx_worm_1
+				has_technology = tech_akx_worm_2
+			}
+		}
+		localization_key = tech_akx_worm_full_custom
+	}
+}
+
+defined_text = { # only needed for devouring swarm conquering robots
+	name = GetPurgeProcessingResource
+	text = {
+		trigger = {
+			is_robotic_species = yes
+			from = {
+				has_valid_civic = civic_hive_devouring_swarm
+			}
+		}
+		localization_key = GetPurgeProcessingResource_alloys
+	}
+	text = {
+		trigger = {
+			is_lithoid = yes
+		}
+		localization_key = GetPurgeProcessingResource_minerals
+	}
+	text = {
+		trigger = {
+			is_lithoid = no
+			OR = {
+				is_robotic_species = no
+				NOT = {
+					from = {
+						has_valid_civic = civic_hive_devouring_swarm
+					}
+				}
+			}
+		}
+		localization_key = GetPurgeProcessingResource_food
+	}
+}
+
+# Must use generate_number_planet_in_system_flags before it. Generates a string describing the planet a bit, e.g. "the system's fifth planet, a [This.GetClassAdj] planet"
+defined_text = {
+	name = GetPlanetBioInfo
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_1
+		}
+		localization_key = PlanetBio1
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_1 }
+		}
+		localization_key = PlanetBio1Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_2
+		}
+		localization_key = PlanetBio2
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_2 }
+		}
+		localization_key = PlanetBio2Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_3
+		}
+		localization_key = PlanetBio3
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_3 }
+		}
+		localization_key = PlanetBio3Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_4
+		}
+		localization_key = PlanetBio4
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_4 }
+		}
+		localization_key = PlanetBio4Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_5
+		}
+		localization_key = PlanetBio5
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_5 }
+		}
+		localization_key = PlanetBio5Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_6
+		}
+		localization_key = PlanetBio6
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_6 }
+		}
+		localization_key = PlanetBio6Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_7
+		}
+		localization_key = PlanetBio7
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_7 }
+		}
+		localization_key = PlanetBio7Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_8
+		}
+		localization_key = PlanetBio8
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_8 }
+		}
+		localization_key = PlanetBio8Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_9
+		}
+		localization_key = PlanetBio9
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_9 }
+		}
+		localization_key = PlanetBio9Moon
+	}
+	text = {
+		trigger = {
+			is_moon = no
+			has_planet_flag = planet_number_10
+		}
+		localization_key = PlanetBio10
+	}
+	text = {
+		trigger = {
+			is_moon = yes
+			orbit = { has_planet_flag = planet_number_10 }
+		}
+		localization_key = PlanetBio10Moon
+	}
+}
+
+# Use before GetClassAdj to get the appropriate "a" or "an"
+defined_text = {
+	name = GetAAnPlanetClass
+	text = {
+		trigger = {
+			OR = {
+				is_planet_class = pc_arid
+				is_planet_class = pc_ocean
+				is_planet_class = pc_arid
+				is_planet_class = pc_arctic
+				is_planet_class = pc_alpine
+				is_planet_class = pc_gaia
+				is_planet_class = pc_ringworld_habitable
+				is_planet_class = pc_shattered_ring_habitable
+				is_planet_class = pc_habitat
+				is_planet_class = pc_city
+			}
+		}
+		localization_key = string_an
+	}
+	default = string_a
+}
+
+# Use in species scope before GetClass to get the appropriate "a" or "an"
+defined_text = {
+	name = GetAAnSpeciesClass
+	text = {
+		trigger = {
+			OR = {
+				is_species_class = AVI
+				is_species_class = ART
+				is_species_class = EXD
+				is_species_class = AI
+				is_species_class = PRE_AVI
+				is_species_class = PRE_ART
+				is_species_class = AQUATIC
+			}
+		}
+		localization_key = string_an
+	}
+	default = string_a
+}
+
+# Gendered titles for action.1, "Greetings <Ruler>"
+defined_text = {
+	name = GetBloodCourtRulerTitle
+	text = {
+		trigger = {
+			NOT = { leader = { gender = female } }
+		}
+		localization_key = RT_HIGH_EXECUTIONER
+	}
+	text = {
+		trigger = {
+			leader = { gender = female }
+		}
+		localization_key = RT_HIGH_EXECUTIONER_FEMALE
+	}
+}
+defined_text = {
+	name = GetPurityOrderRulerTitle
+	text = {
+		trigger = {
+			NOT = { leader = { gender = female } }
+		}
+		localization_key = RT_LORD_PURIFIER
+	}
+	text = {
+		trigger = {
+			leader = { gender = female }
+		}
+		localization_key = RT_LADY_PURIFIER
+	}
+}
+defined_text = {
+	name = GetPurificationCommitteeRulerTitle
+	text = {
+		trigger = {
+			NOT = { leader = { gender = female } }
+		}
+		localization_key = RT_GRAND_ARBITER
+	}
+	text = {
+		trigger = {
+			leader = { gender = female }
+		}
+		localization_key = RT_GRAND_ARBITER_FEMALE
+	}
+}
+
+#This is used to override the title of first_contact.1
+defined_text = {
+	name = GetFirstContactStart
+	text = {
+		trigger = {
+			contact_country = {
+				is_country_type = dragon_dummy
+			}
+		}
+		localization_key = first_contact_dragon
+	}
+	default = first_contact.1.name
+}
+
+defined_text = {
+	name = GetBioAlloy
+	text = {
+		trigger = {
+			is_catalytic_empire = no
+		}
+		localization_key = not_bio_alloy
+	}
+	text = {
+		trigger = {
+			is_catalytic_empire = yes
+		}
+		localization_key = bio_alloy
+	}
+}

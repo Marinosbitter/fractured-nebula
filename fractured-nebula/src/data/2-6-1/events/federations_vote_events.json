@@ -1,0 +1,1 @@
+{"namespace":"fedvote","country_event":[{"id":"fedvote.1","hide_window":true,"is_triggered_only":true,"immediate":{"federation":[]}},{"id":"fedvote.2","hide_window":true,"is_triggered_only":true,"immediate":{"federation":{"if":{"limit":{"has_federation_setting":"failed_vote_half_price"},"add_cohesion":-5},"else":{"add_cohesion":-10}}}}]}

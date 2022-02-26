@@ -1,0 +1,1 @@
+{"example_button_effect":{"potential":{"always":false},"allow":{"always":false},"effect":{"add_monthly_resource_mult":{"resource":"minerals","value":5,"min":5,"max":500}}}}

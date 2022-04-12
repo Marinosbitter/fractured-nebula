@@ -7,10 +7,10 @@ function setupFolder(folderName) {
     try {
         if (!fs.existsSync(folderName)) {
             fs.mkdirSync(folderName);
-            console.info("Generated folder name: " + folderName + " in " + path);
+            // console.info("Generated folder name: " + folderName + " in " + path);
         }
     } catch (err) {
-        console.error(err)
+        // console.error(err)
     }
 }
 function stellarisCrawl(dirname, directory) {
@@ -31,7 +31,7 @@ function stellarisCrawl(dirname, directory) {
                     if (path.extname(filename) === ".txt" || path.extname(filename) === ".TXT") {
                         fs.readFile(dirname + directory + "/" + filename, 'utf8', function (err, data) {
                             if (err) throw err;
-                            console.log("Reading: " + filename);
+                            // console.log("Reading: " + filename);
                             try {
                                 json = jominiParser.parseText(data, { encoding: "utf8" }, (q) => q.json());
                                 savename = filename.replace(path.extname(filename), ".json");
@@ -39,7 +39,7 @@ function stellarisCrawl(dirname, directory) {
                                     if (err) throw err;
                                 })
                             } catch (error) {
-                                console.error(error);
+                                // console.error(error);
                             }
                         });
                     }
@@ -48,6 +48,50 @@ function stellarisCrawl(dirname, directory) {
         });
     });
 
+}
+function exportFracturedNebulaTech(gameVersions) {
+    gameVersions.forEach((gameVersion) => {
+        const techFile = `tech_${gameVersion}.json`;
+        fs.readdir(`./data/${gameVersion}/common/technology`,
+            { withFileTypes: true },
+            (err, files) => {
+                if (err)
+                    console.log(err);
+                else {
+                    files.forEach(file => {
+                        if (dirent => dirent.isFile()) {
+                            fs.readFile(`./data/${gameVersion}/common/technology/${file.name}`, 'utf8', (err, data) => {
+                                if (err) {
+                                    console.error(err);
+                                    return;
+                                }
+                                json = JSON.parse(data);
+                                console.info(json);
+                            })
+                        }
+                    })
+                }
+            })
+    });
+}
+function exportToolData() {
+    var gameVersions = [];
+    fs.readdir("./data",
+        { withFileTypes: true },
+        (err, files) => {
+            if (err)
+                console.log(err);
+            else {
+                files.forEach(file => {
+                    if (dirent => dirent.isDirectory()) {
+                        gameVersions.push(file.name);
+
+                        // Export data for fractured-nebubla-tech
+                        exportFracturedNebulaTech(gameVersions);
+                    }
+                })
+            }
+        })
 }
 
 async function asyncCall() {
@@ -72,6 +116,9 @@ async function asyncCall() {
 
         // Start crawling
         stellarisCrawl(stellarisDir, "");
+
+        // Export data
+        exportToolData();
     });
 }
 asyncCall();

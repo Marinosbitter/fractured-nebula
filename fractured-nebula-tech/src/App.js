@@ -8,29 +8,30 @@ import techData from "./data/tech_3-3-4.json";
 function App() {
   const [rendered, setRendered] = useState(0);
 
-  console.info(techData);
-
   // Setup links and nodes
   var nodes = [];
   var links = [];
   Object.entries(techData).forEach((tech) => {
-    var color;
-    switch (tech[1].area) {
-      case "engineering":
-        color = "#E08F24";
-        break;
-      case "physics":
-        color = "#170994";
-        break;
-      case "society":
-        color = "#2FE097";
-        break;
-      default:
-        color = "#5e5e5e";
+    // Filter out the tech costs
+    if (typeof tech[1] === 'object' && typeof tech[1].tier === 'number') {
+      var color;
+      switch (tech[1].area) {
+        case "engineering":
+          color = "#E08F24";
+          break;
+        case "physics":
+          color = "#170994";
+          break;
+        case "society":
+          color = "#2FE097";
+          break;
+        default:
+          color = "#5e5e5e";
+      }
+      tech.id = tech[0];
+      tech.color = color;
+      nodes.push(tech);
     }
-    tech.id = tech[0];
-    tech.color = color;
-    nodes.push(tech);
 
     if (typeof tech[1].prerequisites !== "undefined") {
       tech[1].prerequisites.forEach((link) => {
@@ -43,6 +44,8 @@ function App() {
     }
   });
 
+  console.info(nodes);
+
   var chart = SankeyChart(
     {
       nodes: nodes,
@@ -50,7 +53,11 @@ function App() {
     },
     {
       nodeGroup: d => d.color,
-      height: nodes.length * 10
+      height: nodes.length * 10,
+      // allign: ()=>{return Math.random()*14}
+      align: (node, n) => { 
+        console.info(techData[node.id].tier)
+        return n / techData[node.id].tier }
     }
   );
 
@@ -77,7 +84,7 @@ function SankeyChart({
   links // an iterable of link objects (typically [{source, target}, …])
 }, {
   format = ",", // a function or format specifier for values in titles
-  align = "left", // convenience shorthand for nodeAlign
+  align = ("left"), // convenience shorthand for nodeAlign
   nodeId = d => d.id, // given d in nodes, returns a unique identifier (string)
   nodeGroup, // given d in nodes, returns an (ordinal) value for color
   nodeGroups, // an array of ordinal values representing the node groups

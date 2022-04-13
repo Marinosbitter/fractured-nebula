@@ -54,7 +54,6 @@ function exportFracturedNebulaTech(gameVersions) {
         // Tech Data
         const techFile = `tech_${gameVersion}.json`;
         var techData = getCombinedJSON(`./data/${gameVersion}/common/technology`);
-        console.info(techData);
         fs.writeFile(`../fractured-nebula-tech/src/data/${techFile}`, JSON.stringify(techData), (err) => {
             if (err)
                 console.log(err);

@@ -51,29 +51,33 @@ function stellarisCrawl(dirname, directory) {
 }
 function exportFracturedNebulaTech(gameVersions) {
     gameVersions.forEach((gameVersion) => {
+        // Tech Data
         const techFile = `tech_${gameVersion}.json`;
-        fs.readdir(`./data/${gameVersion}/common/technology`,
-            { withFileTypes: true },
-            (err, files) => {
-                if (err)
-                    console.log(err);
-                else {
-                    files.forEach(file => {
-                        if (dirent => dirent.isFile()) {
-                            fs.readFile(`./data/${gameVersion}/common/technology/${file.name}`, 'utf8', (err, data) => {
-                                if (err) {
-                                    console.error(err);
-                                    return;
-                                }
-                                json = JSON.parse(data);
-                                console.info(json);
-                            })
-                        }
-                    })
-                }
-            })
+        var techData = getCombinedJSON(`./data/${gameVersion}/common/technology`);
+        console.info(techData);
+        fs.writeFile(`../fractured-nebula-tech/src/data/${techFile}`, JSON.stringify(techData), (err) => {
+            if (err)
+                console.log(err);
+            else {
+                console.info("Tech is done");
+            }
+        });
     });
 }
+function getCombinedJSON(dir) {
+    var combinedJSON = {};
+    var files = fs.readdirSync(dir, { withFileTypes: true });
+
+    for (const file of files) {
+        if (file.isFile()) {
+            const data = fs.readFileSync(`${dir}/${file.name}`, 'utf8');
+            const newJSON = JSON.parse(data);
+            combinedJSON = { ...combinedJSON, ...newJSON };
+        }
+    }
+    return combinedJSON;
+}
+
 function exportToolData() {
     var gameVersions = [];
     fs.readdir("./data",
@@ -91,7 +95,7 @@ function exportToolData() {
                     }
                 })
             }
-        })
+        });
 }
 
 async function asyncCall() {
@@ -104,11 +108,10 @@ async function asyncCall() {
     var stellarisDir = "C:/Program Files (x86)/Steam/steamapps/common/Stellaris/";
 
     // Get Stellaris version
-    fs.readFile(stellarisDir + "ChangeLog.txt", 'utf-8', function (err, content) {
+    fs.readFile(stellarisDir + "launcher-settings.json", 'utf-8', function (err, content) {
         if (err) throw err;
-        const pattern = /VERSION (\d+?\.\d+?\.\d+?)/;
-        const found = content.match(pattern);
-        stellarisVersion = found[1].replace(/\./g, '-');
+        const launcherData = JSON.parse(content);
+        stellarisVersion = launcherData.rawVersion.replace(/\./g, '-');
         console.log("Found game version: " + stellarisVersion);
 
         // Make a folder for current Stellaris version

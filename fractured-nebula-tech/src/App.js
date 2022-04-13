@@ -3,11 +3,10 @@ import './App.css';
 import * as d3 from "d3";
 import * as d3Sankey from "d3-sankey";
 
-import phys_tech from "./data/2-6-1/common/technology/00_phys_tech.json";
+import techData from "./data/tech_3-3-4.json";
 
 function App() {
   const [rendered, setRendered] = useState(0);
-  var techData = phys_tech;
 
   console.info(techData);
 
@@ -50,7 +49,8 @@ function App() {
       links: links
     },
     {
-      nodeGroup: d => d.color
+      nodeGroup: d => d.color,
+      height: nodes.length * 10
     }
   );
 
@@ -77,7 +77,7 @@ function SankeyChart({
   links // an iterable of link objects (typically [{source, target}, …])
 }, {
   format = ",", // a function or format specifier for values in titles
-  align = "justify", // convenience shorthand for nodeAlign
+  align = "left", // convenience shorthand for nodeAlign
   nodeId = d => d.id, // given d in nodes, returns a unique identifier (string)
   nodeGroup, // given d in nodes, returns an (ordinal) value for color
   nodeGroups, // an array of ordinal values representing the node groups

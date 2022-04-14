@@ -13,7 +13,7 @@ function App() {
   var links = [];
   Object.entries(techData).forEach((tech) => {
     // Filter out the tech costs
-    if (typeof tech[1] === 'object' && typeof tech[1].tier === 'number') {
+    if (typeof tech[1] === 'object') {
       var color;
       switch (tech[1].area) {
         case "engineering":
@@ -44,8 +44,6 @@ function App() {
     }
   });
 
-  console.info(nodes);
-
   var chart = SankeyChart(
     {
       nodes: nodes,
@@ -55,9 +53,9 @@ function App() {
       nodeGroup: d => d.color,
       height: nodes.length * 10,
       // allign: ()=>{return Math.random()*14}
-      align: (node, n) => { 
-        console.info(techData[node.id].tier)
-        return n / techData[node.id].tier }
+    //   align: (node, n) => { 
+    //     console.info(techData[node.id].tier)
+    //     return n / techData[node.id].tier }
     }
   );
 

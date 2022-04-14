@@ -68,6 +68,9 @@ export default function NebulaMenu(props) {
           >
             <MenuIcon />
           </IconButton> */}
+          <GameVersionSelect
+            gameVersions={props.gameVersions}
+          />
           <Typography
             variant="h6"
             noWrap
@@ -79,9 +82,7 @@ export default function NebulaMenu(props) {
           </Typography>
           <TechSearch
             techs={props.techs}
-          />
-          <GameVersionSelect
-            versions={props.versions}
+            setSelectedGameVersion={props.setSelectedGameVersion}
           />
         </Toolbar>
       </AppBar>

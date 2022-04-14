@@ -8,21 +8,21 @@ import v3_3_3 from './data/tech_3-3-3.json';
 import v3_3_4 from './data/tech_3-3-4.json';
 
 function App() {
-  const [rendered, setRendered] = useState(0);
+  var [rendered, setRendered] = useState(0);
+  var [selectedGameVersion, setSelectedGameVersion] = useState(0);
 
-  const techData = [
-    { v3_3_3: v3_3_3 },
-    { v3_3_4: v3_3_4 }
-  ];
+  const techData = {
+    v3_3_3: v3_3_3,
+    v3_3_4: v3_3_4
+  };
+  const gameVersions = Object.keys(techData);
 
-  console.info(techData);
-  const gameVersions = techData.map((version) => { version[0] });
-  console.info(gameVersions);
+  if (!selectedGameVersion) { selectedGameVersion = 'v3_3_4' }
 
   // Setup links and nodes
   var nodes = [];
   var links = [];
-  Object.entries(techData).forEach((tech) => {
+  Object.entries(techData[selectedGameVersion]).forEach((tech) => {
     // Filter out the tech costs
     if (typeof tech[1] === 'object') {
       var color;
@@ -79,7 +79,7 @@ function App() {
 
   return (
     <div className="App" id="root">
-      <NebulaMenu techs={nodes} gameVersions={gameVersions} />
+      <NebulaMenu techs={nodes} gameVersions={gameVersions} setSelectedGameVersion={setSelectedGameVersion}/>
       <div id="mapcontainer"></div>
     </div>
   );

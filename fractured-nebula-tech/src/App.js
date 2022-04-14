@@ -4,25 +4,24 @@ import * as d3 from "d3";
 import * as d3Sankey from "d3-sankey";
 import NebulaMenu from './parts/NebulaMenu';
 
-import v3_3_3 from './data/tech_3-3-3.json';
+import vtest from './data/tech_test.json';
 import v3_3_4 from './data/tech_3-3-4.json';
 
 function App() {
   var [rendered, setRendered] = useState(0);
-  var [selectedGameVersion, setSelectedGameVersion] = useState(0);
+  var [gameVersion, setGameVersion] = useState('v3_3_4');
 
   const techData = {
-    v3_3_3: v3_3_3,
+    vtest: vtest,
     v3_3_4: v3_3_4
   };
   const gameVersions = Object.keys(techData);
 
-  if (!selectedGameVersion) { selectedGameVersion = 'v3_3_4' }
-
   // Setup links and nodes
   var nodes = [];
   var links = [];
-  Object.entries(techData[selectedGameVersion]).forEach((tech) => {
+
+  Object.entries(techData[gameVersion]).forEach((tech) => {
     // Filter out the tech costs
     if (typeof tech[1] === 'object') {
       var color;
@@ -63,23 +62,19 @@ function App() {
     {
       nodeGroup: d => d.color,
       height: nodes.length * 10,
-      // allign: ()=>{return Math.random()*14}
-      //   align: (node, n) => { 
-      //     console.info(techData[node.id].tier)
-      //     return n / techData[node.id].tier }
     }
   );
 
   useEffect(() => {
-    if (rendered < 1) {
-      setRendered(1);
-      document.getElementById("mapcontainer").appendChild(chart);
-    }
+    document.getElementById("mapcontainer").innerHTML = '';
+    document.getElementById("mapcontainer").appendChild(chart);
+    if (!rendered) setRendered(1);
+    console.info("re-render complete");
   });
 
   return (
     <div className="App" id="root">
-      <NebulaMenu techs={nodes} gameVersions={gameVersions} setSelectedGameVersion={setSelectedGameVersion}/>
+      <NebulaMenu techs={nodes} gameVersions={gameVersions} setGameVersion={setGameVersion} />
       <div id="mapcontainer"></div>
     </div>
   );

@@ -55,6 +55,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function NebulaMenu(props) {
+  function selectGameVersion(v) {
+    console.info(v);
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -70,6 +73,7 @@ export default function NebulaMenu(props) {
           </IconButton> */}
           <GameVersionSelect
             gameVersions={props.gameVersions}
+            setGameVersion={props.setGameVersion}
           />
           <Typography
             variant="h6"
@@ -82,7 +86,6 @@ export default function NebulaMenu(props) {
           </Typography>
           <TechSearch
             techs={props.techs}
-            setSelectedGameVersion={props.setSelectedGameVersion}
           />
         </Toolbar>
       </AppBar>

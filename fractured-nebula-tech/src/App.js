@@ -2,11 +2,22 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import * as d3 from "d3";
 import * as d3Sankey from "d3-sankey";
+import NebulaMenu from './parts/NebulaMenu';
 
-import techData from "./data/tech_3-3-4.json";
+import v3_3_3 from './data/tech_3-3-3.json';
+import v3_3_4 from './data/tech_3-3-4.json';
 
 function App() {
   const [rendered, setRendered] = useState(0);
+
+  const techData = [
+    { v3_3_3: v3_3_3 },
+    { v3_3_4: v3_3_4 }
+  ];
+
+  console.info(techData);
+  const gameVersions = techData.map((version) => { version[0] });
+  console.info(gameVersions);
 
   // Setup links and nodes
   var nodes = [];
@@ -53,9 +64,9 @@ function App() {
       nodeGroup: d => d.color,
       height: nodes.length * 10,
       // allign: ()=>{return Math.random()*14}
-    //   align: (node, n) => { 
-    //     console.info(techData[node.id].tier)
-    //     return n / techData[node.id].tier }
+      //   align: (node, n) => { 
+      //     console.info(techData[node.id].tier)
+      //     return n / techData[node.id].tier }
     }
   );
 
@@ -68,6 +79,7 @@ function App() {
 
   return (
     <div className="App" id="root">
+      <NebulaMenu techs={nodes} gameVersions={gameVersions} />
       <div id="mapcontainer"></div>
     </div>
   );

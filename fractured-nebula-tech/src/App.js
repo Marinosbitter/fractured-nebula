@@ -3,6 +3,7 @@ import './App.css';
 import * as d3 from "d3";
 import * as d3Sankey from "d3-sankey";
 import NebulaMenu from './parts/NebulaMenu';
+import TechChart from './parts/TechChart'
 
 import vtest from './data/tech_test.json';
 import v3_3_4 from './data/tech_3-3-4.json';
@@ -17,9 +18,19 @@ function App() {
   };
   const gameVersions = Object.keys(techData);
 
-  // Setup links and nodes
-  var nodes = [];
+  var nodes = Object.entries(techData[gameVersion]).filter(v => typeof v[1] === "object");
   var links = [];
+  var nodesWithLink = nodes.filter(n => typeof n[1]['prerequisites'] === 'object' && n[1]['prerequisites'].length > 0);
+  nodesWithLink.forEach(n => {
+    n[1]['prerequisites'].forEach(p => {
+      links.push({ source: p, target: n[0] });
+    });
+  });
+
+  // This shit is for the old map and should be removed
+  // Setup links and nodes
+  var oldNodes = [];
+  var oldLinks = [];
 
   Object.entries(techData[gameVersion]).forEach((tech) => {
     // Filter out the tech costs
@@ -40,12 +51,12 @@ function App() {
       }
       tech.id = tech[0];
       tech.color = color;
-      nodes.push(tech);
+      oldNodes.push(tech);
     }
 
     if (typeof tech[1].prerequisites !== "undefined") {
       tech[1].prerequisites.forEach((link) => {
-        links.push({
+        oldLinks.push({
           source: link,
           target: tech[0],
           value: 1
@@ -53,17 +64,17 @@ function App() {
       });
     }
   });
-
   var chart = SankeyChart(
     {
-      nodes: nodes,
-      links: links
+      nodes: oldNodes,
+      links: oldLinks
     },
     {
       nodeGroup: d => d.color,
-      height: nodes.length * 10,
+      height: oldNodes.length * 10,
     }
   );
+  // Ends shit for old chart
 
   useEffect(() => {
     document.getElementById("mapcontainer").innerHTML = '';
@@ -74,13 +85,19 @@ function App() {
 
   return (
     <div className="App" id="root">
-      <NebulaMenu techs={nodes} gameVersions={gameVersions} setGameVersion={setGameVersion} />
+      <NebulaMenu techs={oldNodes} gameVersions={gameVersions} setGameVersion={setGameVersion} />
+      <TechChart
+        nodes={nodes}
+        links={links}
+      />
+      <h2>This is the old chart and should be removed after the new one is finished!</h2>
       <div id="mapcontainer"></div>
     </div>
   );
 }
 export default App;
 
+// More old chart shit!
 // Copyright 2021 Observable, Inc.
 // Released under the ISC license.
 // https://observablehq.com/@d3/sankey-diagram

@@ -15,13 +15,44 @@ export default function TechChart(props) {
             document.getElementById("techChartContainer").appendChild(techChart);
             firstRender = false;
         }
-        console.info(props);
     });
 
     function buildTechSankey() {
-        var chart = document.createElement('p');
-        chart.innerHTML = `This sankey will have: ${Object.keys(props.nodes).lenght} techs, and ${Object.keys(props.links).lenght} links.`;
-        return chart;
+        var techSankey = d3Sankey.sankey()
+            // .nodes()
+        // // .links()
+        techSankey(props.nodes);
+
+        console.info(techSankey);
+
+        const svg = d3.create("svg")
+            .attr("width", 1920)
+            .attr("height", 1080)
+            .attr("viewBox", [0, 0, 1920, 1080])
+            .attr("style", "max-width: 100%; height: auto; height: intrinsic;");
+
+        const node = svg.append("g")
+        // .attr("stroke", nodeStroke)
+        // .attr("stroke-width", nodeStrokeWidth)
+        // .attr("stroke-opacity", nodeStrokeOpacity)
+        // .attr("stroke-linejoin", nodeStrokeLinejoin)
+        // .selectAll("rect")
+        // .data(nodes)
+        // .join("rect")
+        // .attr("x", d => d.x0)
+        // .attr("y", d => d.y0)
+        // .attr("height", d => d.y1 - d.y0)
+        // .attr("width", d => d.x1 - d.x0);
+
+        const link = svg.append("g")
+        // .attr("fill", "none")
+        // .attr("stroke-opacity", linkStrokeOpacity)
+        // .selectAll("g")
+        // .data(links)
+        // .join("g")
+        // .style("mix-blend-mode", linkMixBlendMode);
+
+        return svg.node();
     }
 
     return (

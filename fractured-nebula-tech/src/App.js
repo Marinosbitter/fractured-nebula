@@ -18,12 +18,15 @@ function App() {
   };
   const gameVersions = Object.keys(techData);
 
-  var nodes = Object.entries(techData[gameVersion]).filter(v => typeof v[1] === "object");
+  var nodes = Object.entries(techData[gameVersion]).filter(v => typeof v[1] === "object").map(v => {
+    v[1]['id'] = v[0];
+    return v[1];
+  });
   var links = [];
-  var nodesWithLink = nodes.filter(n => typeof n[1]['prerequisites'] === 'object' && n[1]['prerequisites'].length > 0);
+  var nodesWithLink = nodes.filter(n => typeof n['prerequisites'] === 'object' && n['prerequisites'].length > 0);
   nodesWithLink.forEach(n => {
-    n[1]['prerequisites'].forEach(p => {
-      links.push({ source: p, target: n[0] });
+    n['prerequisites'].forEach(p => {
+      links.push({ source: p, target: n['id'], value: 1 });
     });
   });
 
@@ -204,34 +207,34 @@ function SankeyChart({
   if (G) node.attr("fill", ({ index: i }) => color(G[i]));
   if (Tt) node.append("title").text(({ index: i }) => Tt[i]);
 
-  const link = svg.append("g")
-    .attr("fill", "none")
-    .attr("stroke-opacity", linkStrokeOpacity)
-    .selectAll("g")
-    .data(links)
-    .join("g")
-    .style("mix-blend-mode", linkMixBlendMode);
+  // const link = svg.append("g")
+  //   .attr("fill", "none")
+  //   .attr("stroke-opacity", linkStrokeOpacity)
+  //   .selectAll("g")
+  //   .data(links)
+  //   .join("g")
+  //   .style("mix-blend-mode", linkMixBlendMode);
 
-  if (linkColor === "source-target") link.append("linearGradient")
-    .attr("id", d => `${uid}-link-${d.index}`)
-    .attr("gradientUnits", "userSpaceOnUse")
-    .attr("x1", d => d.source.x1)
-    .attr("x2", d => d.target.x0)
-    .call(gradient => gradient.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", ({ source: { index: i } }) => color(G[i])))
-    .call(gradient => gradient.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", ({ target: { index: i } }) => color(G[i])));
+  // if (linkColor === "source-target") link.append("linearGradient")
+  //   .attr("id", d => `${uid}-link-${d.index}`)
+  //   .attr("gradientUnits", "userSpaceOnUse")
+  //   .attr("x1", d => d.source.x1)
+  //   .attr("x2", d => d.target.x0)
+  //   .call(gradient => gradient.append("stop")
+  //     .attr("offset", "0%")
+  //     .attr("stop-color", ({ source: { index: i } }) => color(G[i])))
+  //   .call(gradient => gradient.append("stop")
+  //     .attr("offset", "100%")
+  //     .attr("stop-color", ({ target: { index: i } }) => color(G[i])));
 
-  link.append("path")
-    .attr("d", linkPath)
-    .attr("stroke", linkColor === "source-target" ? ({ index: i }) => `url(#${uid}-link-${i})`
-      : linkColor === "source" ? ({ source: { index: i } }) => color(G[i])
-        : linkColor === "target" ? ({ target: { index: i } }) => color(G[i])
-          : linkColor)
-    .attr("stroke-width", ({ width }) => Math.max(1, width))
-    .call(Lt ? path => path.append("title").text(({ index: i }) => Lt[i]) : () => { });
+  // link.append("path")
+  //   .attr("d", linkPath)
+  //   .attr("stroke", linkColor === "source-target" ? ({ index: i }) => `url(#${uid}-link-${i})`
+  //     : linkColor === "source" ? ({ source: { index: i } }) => color(G[i])
+  //       : linkColor === "target" ? ({ target: { index: i } }) => color(G[i])
+  //         : linkColor)
+  //   .attr("stroke-width", ({ width }) => Math.max(1, width))
+  //   .call(Lt ? path => path.append("title").text(({ index: i }) => Lt[i]) : () => { });
 
   if (Tl) svg.append("g")
     .attr("font-family", "sans-serif")

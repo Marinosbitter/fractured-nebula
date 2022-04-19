@@ -16,27 +16,40 @@ function App() {
   };
   const gameVersions = Object.keys(versionData);
 
+  // Filter random weird stellaris shizzle from the nodes
   var nodes = Object.entries(versionData[gameVersion]).filter(v => typeof v[1] === "object").map(v => {
     v[1]['id'] = v[0];
     return v[1];
   });
-  console.info(nodes);
-  if (selectedTech) {
-    console.info(selectedTech);
-    var newNodes = [];
-    var selectedNode = nodes.filter(obj => {
-      return obj.id === selectedTech;
-    })
-    console.info(selectedNode[0]); // Working here!
-  }
+
+  // Filter and select the node tree if a Tech is selected
+  var nodeSelection = nodes;
+  if (selectedTech) nodeSelection = walkPrereqs(findTech(selectedTech, nodes));
 
   var links = [];
-  var nodesWithLink = nodes.filter(n => typeof n['prerequisites'] === 'object' && n['prerequisites'].length > 0);
+  var nodesWithLink = nodeSelection.filter(n => typeof n['prerequisites'] === 'object' && n['prerequisites'].length > 0);
   nodesWithLink.forEach(n => {
     n['prerequisites'].forEach(p => {
       links.push({ source: p, target: n['id'], value: 1 });
     });
   });
+
+  function walkPrereqs(t, r = []) {
+    r.push(t);
+    if (Array.isArray(t.prerequisites)) {
+      t.prerequisites.forEach(pid => {
+        var p = findTech(pid);
+        walkPrereqs(p, r);
+      });
+    }
+    return r;
+  }
+
+  function findTech(n, h = nodes) {
+    return h.find(obj => {
+      return obj.id === n;
+    });
+  }
 
   return (
     <div className="App" id="root">
@@ -47,7 +60,7 @@ function App() {
         setGameVersion={setGameVersion}
       />
       <TechChart
-        nodes={nodes}
+        nodes={nodeSelection}
         links={links}
       />
     </div>

@@ -3,6 +3,10 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
 export default function GameVersionSelect(props) {
+    function updateChange(newValue) {
+        if (!newValue) newValue = props.gameVersions[props.gameVersions.length - 1];
+        props.setGameVersion(newValue);
+    }
     return (
         <Autocomplete
             value={props.selectedGameVersion}
@@ -11,7 +15,7 @@ export default function GameVersionSelect(props) {
             options={props.gameVersions.map(version => version)}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Game Version" />}
-            onChange={(event,newValue)=>{props.setGameVersion(newValue)}}
+            onChange={(event, newValue) => { updateChange(newValue) }}
         />
     );
 }

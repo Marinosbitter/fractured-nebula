@@ -7,19 +7,19 @@ export default function TechChart(props) {
     var links = props.links;
 
     const svgWidth = 1920;
-    const svgHeight = nodes.length * 20;
+    const svgHeight = Math.max(nodes.length * 20, 400);
+    const svgPadding = 100;
 
     useEffect(() => {
         document.getElementById("techChartContainer").innerHTML = '';
         var svg = d3.select("#techChartContainer").append("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgHeight);
+            .attr("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
 
         var techSankey = d3Sankey.sankey()
             .nodeId(d => d.id)
             .nodeWidth(20)
             .nodePadding(24)
-            .extent([[0, 0], [svgWidth, svgHeight]])
+            .extent([[0 + svgPadding, 0 + svgPadding], [svgWidth - svgPadding * 2, svgHeight - svgPadding]])
             .nodeAlign(d3Sankey.sankeyLeft)
             ({ nodes, links });
 
@@ -30,7 +30,7 @@ export default function TechChart(props) {
             .data(links)
             .join("path")
             .attr("d", d3Sankey.sankeyLinkHorizontal())
-            .attr("stroke", d => getAreaColor(d.target))
+            .attr("stroke", d => getAreaColor(d.source))
             .attr("stroke-width", d => d.width);
 
         const node = svg.append("g")
@@ -46,7 +46,8 @@ export default function TechChart(props) {
             .attr("y", d => d.y0)
             .attr("height", d => d.y1 - d.y0)
             .attr("width", d => d.x1 - d.x0)
-            .attr("style", d => "fill:" + getAreaColor(d));
+            .attr("style", d => "fill:" + getAreaColor(d))
+            .on("click", (e, d) => props.setSelectedTech(d.id));
 
         const titles = svg.append("g")
             .selectAll("text")

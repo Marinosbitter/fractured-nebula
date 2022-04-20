@@ -84,6 +84,7 @@ export default function NebulaMenu(props) {
           <TechSearch
             techs={props.techs}
             setSelectedTech={props.setSelectedTech}
+            selectedTech={props.selectedTech}
           />
         </Toolbar>
       </AppBar>

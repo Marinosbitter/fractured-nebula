@@ -7,7 +7,7 @@ import vtest from './data/tech_test.json';
 import v3_3_4 from './data/tech_3-3-4.json';
 
 function App() {
-  var [selectedTech, setSelectedTech] = useState(0);
+  var [selectedTech, setSelectedTech] = useState(null);
   var [gameVersion, setGameVersion] = useState('v3_3_4');
 
   const versionData = {
@@ -56,12 +56,14 @@ function App() {
       <NebulaMenu
         techs={nodes}
         setSelectedTech={setSelectedTech}
+        selectedTech={selectedTech}
         gameVersions={gameVersions}
         setGameVersion={setGameVersion}
       />
       <TechChart
         nodes={nodeSelection}
         links={links}
+        setSelectedTech={setSelectedTech}
       />
     </div>
   );

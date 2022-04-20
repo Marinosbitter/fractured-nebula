@@ -56,7 +56,8 @@ export default function TechChart(props) {
             .attr("x", d => d.x0 + 24)
             .attr("y", d => d.y0 + (d.y1 - d.y0) / 2)
             .attr("fill", d => getPropColor(d))
-            .text(d => d.id);
+            .text(d => d.id)
+            .on("click", (e, d) => props.setSelectedTech(d.id));
     });
 
     function getAreaColor(t) {

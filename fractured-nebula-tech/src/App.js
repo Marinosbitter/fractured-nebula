@@ -24,7 +24,7 @@ function App() {
 
   // Filter and select the node tree if a Tech is selected
   var nodeSelection = nodes;
-  if (selectedTech) nodeSelection = walkPrereqs(findTech(selectedTech, nodes));
+  if (selectedTech && findTech(selectedTech)) nodeSelection = walkPrereqs(findTech(selectedTech, nodes));
 
   var links = [];
   var nodesWithLink = nodeSelection.filter(n => typeof n['prerequisites'] === 'object' && n['prerequisites'].length > 0);

@@ -17,13 +17,11 @@ export default function TechChart(props) {
         }
     });
 
-    function buildTechSankey() {
-        var techSankey = d3Sankey.sankey()
-            // .nodes()
-        // // .links()
-        techSankey(props.nodes);
+    function buildTechSankey(props) {
+        var graph = d3Sankey.sankey()
+            .nodeId();
 
-        console.info(techSankey);
+        console.info(graph);
 
         const svg = d3.create("svg")
             .attr("width", 1920)

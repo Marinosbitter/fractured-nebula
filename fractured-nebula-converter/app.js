@@ -54,6 +54,8 @@ function exportFracturedNebulaTech(gameVersions) {
         // Tech Data
         const techFile = `tech_${gameVersion}.json`;
         var techData = getCombinedJSON(`./data/${gameVersion}/common/technology`);
+        techData = cleanupTechJSON(techData);
+
         fs.writeFile(`../fractured-nebula-tech/src/data/${techFile}`, JSON.stringify(techData), (err) => {
             if (err)
                 console.log(err);
@@ -95,6 +97,15 @@ function exportToolData() {
                 })
             }
         });
+}
+function CleanupTechJSON(techData){
+    var newTechData = [];
+    var techWeights = [];
+
+    // Seperate techData and weights
+    // Save techData in array for easy WP import
+
+    return newTechData;
 }
 
 async function asyncCall() {

@@ -3,7 +3,7 @@ import './App.css';
 import * as d3 from "d3";
 import * as d3Sankey from "d3-sankey";
 import NebulaMenu from './parts/NebulaMenu';
-import TechChart from './parts/TechChart'
+import TechChart from './parts/TechChart';
 
 import vtest from './data/tech_test.json';
 import v3_3_4 from './data/tech_3-3-4.json';
@@ -18,12 +18,12 @@ function App() {
   };
   const gameVersions = Object.keys(techData);
 
-  var nodes = Object.entries(techData[gameVersion]).filter(v => typeof v[1] === "object");
-  var links = [];
-  var nodesWithLink = nodes.filter(n => typeof n[1]['prerequisites'] === 'object' && n[1]['prerequisites'].length > 0);
+  var techs = Object.entries(techData[gameVersion]).filter(v => typeof v[1] === "object");
+  var techlinks = [];
+  var nodesWithLink = techs.filter(n => typeof n[1]['prerequisites'] === 'object' && n[1]['prerequisites'].length > 0);
   nodesWithLink.forEach(n => {
     n[1]['prerequisites'].forEach(p => {
-      links.push({ source: p, target: n[0] });
+      techlinks.push({ source: p, target: n[0] });
     });
   });
 
@@ -87,8 +87,8 @@ function App() {
     <div className="App" id="root">
       <NebulaMenu techs={oldNodes} gameVersions={gameVersions} setGameVersion={setGameVersion} />
       <TechChart
-        nodes={nodes}
-        links={links}
+        techs={techs}
+        techLinks={techlinks}
       />
       <h2>This is the old chart and should be removed after the new one is finished!</h2>
       <div id="mapcontainer"></div>

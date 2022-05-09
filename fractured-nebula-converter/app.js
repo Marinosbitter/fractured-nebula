@@ -98,13 +98,24 @@ function exportToolData() {
             }
         });
 }
-function CleanupTechJSON(techData){
+function cleanupTechJSON(techData) {
     var newTechData = [];
     var techWeights = [];
 
-    // Seperate techData and weights
-    // Save techData in array for easy WP import
+    for (var tech in techData) {
+        var key = tech;
+        var val = techData[key];
+        const regexp = new RegExp('^@');
 
+        if (regexp.test(key)) {
+            techWeights.push(techData[key]);
+        } else {
+            techData[key].id = key;
+            newTechData.push(techData[key]);
+        }
+
+        console.info(`Name: ${key} and value is ${val}`);
+    }
     return newTechData;
 }
 
@@ -115,7 +126,7 @@ async function asyncCall() {
     jominiParser = await Jomini.initialize();
 
     // Get Stellaris directory
-    var stellarisDir = "C:/Program Files (x86)/Steam/steamapps/common/Stellaris/";
+    var stellarisDir = "D:/SteamLibrary/steamapps/common/Stellaris/";
 
     // Get Stellaris version
     fs.readFile(stellarisDir + "launcher-settings.json", 'utf-8', function (err, content) {

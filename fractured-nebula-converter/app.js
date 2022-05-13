@@ -84,6 +84,7 @@ function exportToolData() {
     fs.readdir("./data",
         { withFileTypes: true },
         (err, files) => {
+            // test
             if (err)
                 console.log(err);
             else {
@@ -103,7 +104,7 @@ function CleanupTechJSON(techData){
     var techWeights = [];
 
     // Seperate techData and weights
-    // Save techData in array for easy WP import
+    // Save techData in array for easy WP import 
 
     return newTechData;
 }

@@ -11,6 +11,8 @@
     "cra-template": "1.1.3",
     "d3": "^7.4.4",
     "d3-sankey": "^0.12.3",
+    "jomini": "^0.7.0",
+    "prompt": "^1.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.0"

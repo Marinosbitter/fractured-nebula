@@ -2,6 +2,8 @@ var fs = require('fs');
 const path = require('path');
 const { Jomini } = require("jomini");
 var jominiParser, stellarisVersion;
+const stellarisPath = 'C:/Program Files (x86)/Steam/steamapps/common/Stellaris/';
+const dataFolder = '../src/data';
 
 function setupFolder(folderName) {
     try {
@@ -23,7 +25,7 @@ function stellarisCrawl(dirname, directory) {
                 if (err) throw err;
                 // In case of directory
                 if (item.isDirectory()) {
-                    setupFolder("data/" + stellarisVersion + "/" + directory + "/" + filename);
+                    setupFolder(dataFolder + "/" + stellarisVersion + "/" + directory + "/" + filename);
                     stellarisCrawl(dirname, directory + "/" + filename);
                 }
                 // In case of file
@@ -35,7 +37,7 @@ function stellarisCrawl(dirname, directory) {
                             try {
                                 json = jominiParser.parseText(data, { encoding: "utf8" }, (q) => q.json());
                                 savename = filename.replace(path.extname(filename), ".json");
-                                fs.writeFile("data/" + stellarisVersion + "/" + directory + "/" + savename, json, err => {
+                                fs.writeFile(dataFolder + "/" + stellarisVersion + "/" + directory + "/" + savename, json, err => {
                                     if (err) throw err;
                                 })
                             } catch (error) {
@@ -53,10 +55,10 @@ function exportFracturedNebulaTech(gameVersions) {
     gameVersions.forEach((gameVersion) => {
         // Tech Data
         const techFile = `tech_${gameVersion}.json`;
-        var techData = getCombinedJSON(`./data/${gameVersion}/common/technology`);
+        var techData = getCombinedJSON(`${dataFolder}/${gameVersion}/common/technology`);
         techData = cleanupTechJSON(techData);
 
-        fs.writeFile(`../fractured-nebula-tech/src/data/${techFile}`, JSON.stringify(techData), (err) => {
+        fs.writeFile(`${dataFolder}/${techFile}`, JSON.stringify(techData), (err) => {
             if (err)
                 console.log(err);
             else {
@@ -127,7 +129,7 @@ async function asyncCall() {
     jominiParser = await Jomini.initialize();
 
     // Get Stellaris directory
-    var stellarisDir = "D:/SteamLibrary/steamapps/common/Stellaris/";
+    var stellarisDir = stellarisPath;
 
     // Get Stellaris version
     fs.readFile(stellarisDir + "launcher-settings.json", 'utf-8', function (err, content) {
@@ -137,7 +139,7 @@ async function asyncCall() {
         console.log("Found game version: " + stellarisVersion);
 
         // Make a folder for current Stellaris version
-        setupFolder("data/" + stellarisVersion);
+        setupFolder(dataFolder + "/" + stellarisVersion);
 
         // Start crawling
         stellarisCrawl(stellarisDir, "");

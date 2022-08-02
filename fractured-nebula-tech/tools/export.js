@@ -3,7 +3,8 @@ const path = require('path');
 const { Jomini } = require("jomini");
 var jominiParser, stellarisVersion;
 const stellarisPath = 'C:/Program Files (x86)/Steam/steamapps/common/Stellaris/';
-const dataFolder = '../src/data';
+const dataFolder = './tools/data';
+const dataExportFolder = './src/data';
 
 function setupFolder(folderName) {
     try {
@@ -12,13 +13,12 @@ function setupFolder(folderName) {
             // console.info("Generated folder name: " + folderName + " in " + path);
         }
     } catch (err) {
-        // console.error(err)
+        console.error(err)
     }
 }
 function stellarisCrawl(dirname, directory) {
     fs.readdir(dirname + directory, function (err, files) {
         if (err) throw err;
-
         // Filter txt files and for each file
         files.forEach(function (filename) {
             fs.stat(dirname + directory + "/" + filename, (err, item) => {
@@ -51,6 +51,7 @@ function stellarisCrawl(dirname, directory) {
     });
 
 }
+
 function exportFracturedNebulaTech(gameVersions) {
     gameVersions.forEach((gameVersion) => {
         // Tech Data
@@ -83,17 +84,15 @@ function getCombinedJSON(dir) {
 
 function exportToolData() {
     var gameVersions = [];
-    fs.readdir("./data",
+    fs.readdir(dataFolder,
         { withFileTypes: true },
         (err, files) => {
-            // test
             if (err)
                 console.log(err);
             else {
                 files.forEach(file => {
                     if (dirent => dirent.isDirectory()) {
                         gameVersions.push(file.name);
-
                         // Export data for fractured-nebubla-tech
                         exportFracturedNebulaTech(gameVersions);
                     }
@@ -145,7 +144,33 @@ async function asyncCall() {
         stellarisCrawl(stellarisDir, "");
 
         // Export data
-        exportToolData();
+        // exportToolData();
+        exportTechData(stellarisVersion);
     });
 }
 asyncCall();
+
+function exportTechData(stellarisVersion) {
+    // Read all tech JSONs from current game version folder
+    var tech = fs.readdirSync(
+        `${dataFolder}/${stellarisVersion}/common/technology`,
+        { withFileTypes: true }
+    );
+    console.info(tech);
+
+    // fs.readdir(`${dataFolder}/${stellarisVersion}/common/technology`,
+    //     { withFileTypes: true },
+    //     (err, files) => {
+    //         if (err)
+    //             console.log(err);
+    //         else {
+    //             files.forEach(file => {
+    //                 if (dirent => dirent.isDirectory()) {
+    //                     console.info(file);
+    //                 }
+    //             })
+    //         }
+    //     });
+    // Combine the JSON in a single object
+    // Add object to the Tech JSON
+}
